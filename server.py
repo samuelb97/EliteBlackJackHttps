@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 import json
 
@@ -96,22 +96,13 @@ class GameEnter(Resource):
 
         #Begin new client thread
         
-        return "Alias: " + alias)
+        return "Alias: " + alias
 
 api.add_resource(GameEnter, '/GE/<string:alias>')
 
 
 def handle_newUser(alias):
     #TODO: Handle new user
-    return None
-
-class GameStatus(Resource):
-    def get(self):
-        print("GameStatus Requested\n")
-        return game.getGameStatusJson()
-
-api.add_resource(GameStatus, '/status')
-
     global game
 
     for i in range(5):
@@ -119,6 +110,16 @@ api.add_resource(GameStatus, '/status')
             game.playersList[i].alias = alias
             game.playersList[i].balance = 100
             return jsonify({'seatNo': i})
+        
+    return None
+
+class GameStatus(Resource):
+    def get(self):
+        global game
+        print("GameStatus Requested\n")
+        return game.getGameStatusJson()
+
+api.add_resource(GameStatus, '/status')
 
 def quit_game(seatNo):
 
