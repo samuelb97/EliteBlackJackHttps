@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 import json
 
 application = Flask(__name__)
@@ -120,6 +120,18 @@ class GameStatus(Resource):
         return game.getGameStatusJson()
 
 api.add_resource(GameStatus, '/status')
+
+class Wager(Resource):
+    def post(self):
+        print("Wager Post\n")
+        req = request.get_json(force=True)
+        wager = req["wager"]
+        seatNo = req["seatNo"]  
+        game.playersList[seatNo - 1].wager = wager
+        #TODO: Check if all players have wagered then change game Status
+
+
+api.add_resource(Wager, '/WA')
 
 def quit_game(seatNo):
 
