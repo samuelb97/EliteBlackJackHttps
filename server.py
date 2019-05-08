@@ -24,58 +24,59 @@ class _game:
         self.gameState = "awaitingWagers"
 
     def getGameStatusJson(self):
-        gameStatus = {
-            "gameState" : self.gameState,
+        gameStatus =
+        {
+            "gameState" : "${self.gameState}",
             "dealer" : {
-                "hand" : self.dealer.hand,
-                "score" : self.dealer.score,
-                "winStatus" : self.dealer.win_status
+                "hand" : "${self.dealer.hand}",
+                "score" : "${self.dealer.score}",
+                "winStatus" : "${self.dealer.win_status}"
             },
             "players" : {
                 "player1" : {
-                    "alias" : self.playersList[0].alias,
-                    "balance" : self.playersList[0].balance,
-                    "hand" : self.playersList[0].hand,
-                    "score" : self.playersList[0].score,
-                    "wager" : self.playersList[0].wager,
-                    "moveStatus" : self.playersList[0].move_status,
-                    "winStatus" : self.playersList[0].win_status
+                    "alias" : "${self.playersList[0].alias}",
+                    "balance" : "${self.playersList[0].balance}",
+                    "hand" : "${self.playersList[0].hand}",
+                    "score" : "${self.playersList[0].score}",
+                    "wager" : "${self.playersList[0].wager}",
+                    "moveStatus" : "${self.playersList[0].move_status}",
+                    "winStatus" : "${self.playersList[0].win_status}"
                 },
                 "player2" : {
-                    "alias" : self.playersList[1].alias,
-                    "balance" : self.playersList[1].balance,
-                    "hand" : self.playersList[1].hand,
-                    "score" : self.playersList[1].score,
-                    "wager" : self.playersList[1].wager,
-                    "moveStatus" : self.playersList[1].move_status,
-                    "winStatus" : self.playersList[1].win_status
+                    "alias" : "${self.playersList[1].alias}",
+                    "balance" : "${self.playersList[1].balance}",
+                    "hand" : "${self.playersList[1].hand}",
+                    "score" : "${self.playersList[1].score}",
+                    "wager" : "${self.playersList[1].wager}",
+                    "moveStatus" : "${self.playersList[1].move_status}",
+                    "winStatus" : "${self.playersList[1].win_status}"
                 },
                 "player3" : {
-                    "alias" : self.playersList[2].alias,
-                    "balance" : self.playersList[2].balance,
-                    "hand" : self.playersList[2].hand,
-                    "score" : self.playersList[2].score,
-                    "wager" : self.playersList[2].wager,
-                    "moveStatus" : self.playersList[2].move_status,
-                    "winStatus" : self.playersList[2].win_status
+                    "alias" : "${self.playersList[2].alias}",
+                    "balance" : "${self.playersList[2].balance}",
+                    "hand" : "${self.playersList[2].hand}",
+                    "score" : "${self.playersList[2].score}",
+                    "wager" : "${self.playersList[2].wager}",
+                    "moveStatus" : "${self.playersList[2].move_status}",
+                    "winStatus" : "${self.playersList[2].win_status}"
                 },
                 "player4" : {
-                    "alias" : self.playersList[3].alias,
-                    "balance" : self.playersList[3].balance,
-                    "hand" : self.playersList[3].hand,
-                    "score" : self.playersList[3].score,
-                    "wager" : self.playersList[3].wager,
-                    "moveStatus" : self.playersList[3].move_status,
-                    "winStatus" : self.playersList[3].win_status
+                    "alias" : "${self.playersList[3].alias}",
+                    "balance" : "${self.playersList[3].balance}",
+                    "hand" : "${self.playersList[3].hand}",
+                    "score" : "${self.playersList[3].score}",
+                    "wager" : "${self.playersList[3].wager}",
+                    "moveStatus" : "${self.playersList[3].move_status}",
+                    "winStatus" : "${self.playersList[3].win_status}"
                 },
                 "player5" : {
-                    "alias" : self.playersList[4].alias,
-                    "balance" : self.playersList[4].balance,
-                    "hand" : self.playersList[4].hand,
-                    "score" : self.playersList[4].score,
-                    "wager" : self.playersList[4].wager,
-                    "moveStatus" : self.playersList[4].move_status,
-                    "winStatus" : self.playersList[4].win_status
+                    "alias" : "${self.playersList[4].alias}",
+                    "balance" : "${self.playersList[4].balance}",
+                    "hand" : "${self.playersList[4].hand}",
+                    "score" : "${self.playersList[4].score}",
+                    "wager" : "${self.playersList[4].wager}",
+                    "moveStatus" : "${self.playersList[4].move_status}",
+                    "winStatus" : "${self.playersList[4].win_status}"
                 }
             }
         }
@@ -141,7 +142,7 @@ class quit_game(Resource):
         print("Quit Game Post\n")
         req = request.get_json(force=True)
         seatNo = req["seatNo"]
-        game.playersList[seatNo - 1] = None
+        game.playersList[seatNo - 1] = Player(None, None, None, None, None, None)
 
 api.add_resource(quit_game, '/QG')
 
