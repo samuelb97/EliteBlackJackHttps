@@ -139,7 +139,7 @@ class quit_game(Resource):
         print("Quit Game Post\n")
         req = request.get_json(force=True)
         seatNo = req["seatNo"]
-        game.playersList[seatNo - 1] = None
+        game.playersList[seatNo - 1] = Player(None, None, None, None, None, None)
 
 api.add_resource(quit_game, '/QG')
 
