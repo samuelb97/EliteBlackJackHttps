@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 import json
 import os
 import random
@@ -123,29 +123,27 @@ class GameStatus(Resource):
 
 api.add_resource(GameStatus, '/status')
 
-
-
-class QuitGame(Resource):
+class Wager(Resource):
     def post(self):
         global game
-        print("Action request\n")
-        
-        req = get_json(force=True)
-        handle_action(req)
+        print("Wager Post\n")
+        req = request.get_json(force=True)
+        wager = req["wager"]
+        seatNo = req["seatNo"]  
+        game.playersList[seatNo - 1].wager = wager
+        #TODO: Check if all players have wagered then change game Status
 
+api.add_resource(Wager, '/WA') 
 
-        return None
+class quit_game(Resource):
+    def post(self):
+        global game
+        print("Quit Game Post\n")
+        req = request.get_json(force=True)
+        seatNo = req["seatNo"]
+        game.playersList[seatNo - 1] = None
 
-api.add_resource(QuitGame, '/QG')
-
-def quit_game(req):
-
-    global game
-    seatNo = req['seatNo']
-
-    game.playersList[seatNo].alias = Player(None, None, None, None, None, None)
-
-    #edit game status json
+api.add_resource(quit_game, '/QG')
 
 class Action(Resource):
     def post(self):
@@ -164,6 +162,7 @@ def handle_action(req):
     global deck
     global game
     seatNo = req['seatNo']
+    seatNo -= 1
     game.playersList[seatNo].move_status = req['action']
     #insert logic for move
 
