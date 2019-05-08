@@ -123,6 +123,7 @@ api.add_resource(GameStatus, '/status')
 
 class Wager(Resource):
     def post(self):
+        global game
         print("Wager Post\n")
         req = request.get_json(force=True)
         wager = req["wager"]
@@ -130,18 +131,17 @@ class Wager(Resource):
         game.playersList[seatNo - 1].wager = wager
         #TODO: Check if all players have wagered then change game Status
 
+api.add_resource(Wager, '/WA') 
 
-api.add_resource(Wager, '/WA')
+class quit_game(Resource):
+    def post(self):
+        global game
+        print("Quit Game Post\n")
+        req = request.get_json(force=True)
+        seatNo = req["seatNo"]
+        game.playersList[seatNo - 1] = None
 
-def quit_game(seatNo):
-
-    global game
-
-
-    game.playersList[seatNo].alias = None
-    game.playersList[seatNo].balance = None
-
-    #edit game status json
+api.add_resource(quit_game, '/QG')
 
 
 
