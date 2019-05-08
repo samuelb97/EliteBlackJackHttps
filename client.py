@@ -7,7 +7,9 @@ requests.post(url = URL + "WA", json = {"wager" : 5, "seatNo" : 1})
 
 data = requests.get(url = URL + "status").json()
 
-player1 = data["gameState"]
+data = json.loads(data)
+
+player1 = data['players']['player1']['wager']
 
 print(player1)
 

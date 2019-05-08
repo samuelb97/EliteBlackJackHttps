@@ -24,8 +24,7 @@ class _game:
         self.gameState = "awaitingWagers"
 
     def getGameStatusJson(self):
-        gameStatus =
-        {
+        gameStatus = {
             "gameState" : "${self.gameState}",
             "dealer" : {
                 "hand" : "${self.dealer.hand}",
